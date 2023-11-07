@@ -1,0 +1,20 @@
+version: "3"
+services:
+  backend:
+    container_name: auth-flow
+    build: .
+    ports:
+      - 3000:3001
+    restart: always
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - ./postgres_init_scripts/:/docker-entrypoint-initdb.d/
+      - ./data:/var/lib/postgresql/data
